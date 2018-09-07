@@ -1,18 +1,22 @@
 {
-  "name": "eventemitter",
+  "name": "@reversecurrent/eventemitter",
   "version": "1.0.0",
-  "description": "",
+  "private": false,
+  "description": "Event Emitter object which allows applicatios to implement pub-sub pattern enabling loose coupling between components",
   "main": "index.js",
   "scripts": {
     "build-tsc": "tsc",
-    "build": "npm run build-tsc",
-    "test": "jest"
+    "build": "rimraf dist && npm run build-tsc && npm run packagejson",
+    "test": "jest",
+    "packagejson": "cpx package*.json ./dist"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^23.3.1",
+    "cpx": "^1.5.0",
     "jest": "^23.5.0",
+    "rimraf": "^2.6.2",
     "ts-jest": "^23.1.4",
     "ts-node": "^7.0.1",
     "typescript": "^3.0.3"
