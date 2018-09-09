@@ -1,4 +1,5 @@
 import EventEmitter from '../src/EventEmitter';
+import Action from '../src/EventEmitter';
 
 let testCount = 0;
 function eventHandler(arg: number = 0) {
@@ -58,5 +59,12 @@ describe('Event Emitter', () => {
         ee.off('onSave',eventHandler);
         ee.emit('onSave', 10);
         expect(testCount).toBe(0);
+    });
+
+    it('should dispatch action',() => {
+        const ee = new EventEmitter();
+        ee.on('onSave', eventHandler);
+        ee.dispatch({actionName: 'onSave', payload:100});
+        expect(testCount).toEqual(100);
     });
 });

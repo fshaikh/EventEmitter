@@ -10,5 +10,6 @@ ee.on('onSave', () => {});
 ee.on('onSave', eventHandler);
 
 
-ee.off('onSave',eventHandler);
+//ee.emit('onSave',100);
+ee.dispatch({actionName: 'onSave', payload:100});
 console.log(ee.listenerCount('onSave'))

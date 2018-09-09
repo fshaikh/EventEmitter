@@ -1,3 +1,5 @@
+import {Action} from './Action';
+
 /**
  * Event Emitter object which allows applicatios to implement pub-sub pattern
  * enabling loose coupling between components
@@ -42,18 +44,12 @@ export default class EventEmitter {
         if(!key) {
             throw TypeError('key cannot be null or empty');
         }
+        return this.dispatchCore(key, args);
+        
+    }
 
-        // check if any event is registered
-        let event = this._events[key];
-        // early return
-        if(event == null) {
-            return this;
-        }
-        event.forEach(function handleEventHandler(handler: Function) {
-            handler.apply(this, args)
-        });
-
-        return this;
+    public dispatch(action: Action) {
+        return this.dispatchCore(action.actionName, [action.payload]);
     }
 
     public off(key: string, handler: Function) {
@@ -86,5 +82,19 @@ export default class EventEmitter {
         }
         let event = this._events[key];
         return event ? event.length: -1;
+    }
+
+    private dispatchCore(key: string, args) {
+        // check if any event is registered
+        let event = this._events[key];
+        // early return
+        if(event == null) {
+            return this;
+        }
+        event.forEach(function handleEventHandler(handler: Function) {
+            handler.apply(this, args)
+        });
+
+        return this;
     }
 }
